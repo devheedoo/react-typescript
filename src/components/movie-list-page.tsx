@@ -36,14 +36,27 @@ const MovieListPage = ({ useGetMovieHook }: MovieListPageProps) => {
     <>
       <PageWrapper>
         <MovieList>
-          {movies?.results.map((movie) => {
+          {movies?.results.map((movie, index) => {
             return (
               <MovieCard
                 key={movie.id}
                 layoutId={movie.id + ""}
                 onClick={() => handleClickCard(movie.id)}
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{
+                  scale: 1,
+                  opacity: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  delay: index * 0.3,
+                  duration: 0.3,
+                }}
               >
-                <MovieCardImage src={makeImagePath(movie.poster_path)} />
+                <MovieCardImage
+                  src={makeImagePath(movie.poster_path)}
+                  whileHover={{ scale: 1.2, transition: { duration: 0.2 } }}
+                />
                 <MovieCardTitle>{movie.title}</MovieCardTitle>
               </MovieCard>
             );

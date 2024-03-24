@@ -39,7 +39,7 @@ export const MovieCard = styled(motion.div)`
   cursor: pointer;
 `;
 
-export const MovieCardImage = styled.img`
+export const MovieCardImage = styled(motion.img)`
   width: 100%;
   height: auto;
   mask-image: linear-gradient(to bottom, white 70%, transparent);
