@@ -18,7 +18,7 @@ export const PageTitle = styled.h1`
   text-transform: uppercase;
 `;
 
-export const MovieList = styled.div`
+export const MovieList = styled(motion.div)`
   margin-top: 24px;
   padding: 0 60px;
   display: flex;

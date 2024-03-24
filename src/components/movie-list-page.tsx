@@ -32,26 +32,31 @@ const MovieListPage = ({ useGetMovieHook }: MovieListPageProps) => {
     return <p>Loading movies...</p>;
   }
 
+  const showingVariants = {
+    hidden: { scale: 0, opacity: 0 },
+    show: {
+      scale: 1,
+      opacity: 1,
+      transition: { staggerChildren: 0.3, duration: 0.3 },
+    },
+  };
+
+  const showingVariantsChild = {
+    hidden: { scale: 0, opacity: 0 },
+    show: { scale: 1, opacity: 1 },
+  };
+
   return (
     <>
       <PageWrapper>
-        <MovieList>
-          {movies?.results.map((movie, index) => {
+        <MovieList variants={showingVariants} initial="hidden" animate="show">
+          {movies?.results.map((movie) => {
             return (
               <MovieCard
                 key={movie.id}
                 layoutId={movie.id + ""}
                 onClick={() => handleClickCard(movie.id)}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{
-                  scale: 1,
-                  opacity: 1,
-                }}
-                transition={{
-                  type: "spring",
-                  delay: index * 0.3,
-                  duration: 0.3,
-                }}
+                variants={showingVariantsChild}
               >
                 <MovieCardImage
                   src={makeImagePath(movie.poster_path)}
