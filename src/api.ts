@@ -1,18 +1,18 @@
 const BASE_URL = "https://movies-api.nomadcoders.workers.dev";
 
-export function getPopular() {
+export async function getPopular(): Promise<IAPIResponse> {
   return fetch(`${BASE_URL}/popular`).then((r) => r.json());
 }
 
-export function getNowPlaying() {
+export async function getNowPlaying(): Promise<IAPIResponse> {
   return fetch(`${BASE_URL}/now-playing`).then((r) => r.json());
 }
 
-export function getComingSoon() {
+export async function getComingSoon(): Promise<IAPIResponse> {
   return fetch(`${BASE_URL}/coming-soon`).then((r) => r.json());
 }
 
-export function getMovie(id: string) {
+export async function getMovie(id: string): Promise<IMovieDetail> {
   return fetch(`${BASE_URL}/movie?id=${id}`).then((r) => r.json());
 }
 
