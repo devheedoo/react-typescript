@@ -7,7 +7,7 @@ import {
   ModalDescription,
   Modal,
 } from "./shared";
-import { useNavigate } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 export interface ModalProps {
   movieId: string | null;
@@ -15,11 +15,12 @@ export interface ModalProps {
 }
 
 const MovieModal = ({ movieId, selectedMovie }: ModalProps) => {
-  const navigate = useNavigate();
   const { scrollY } = useViewportScroll();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const handleClickOverlay = () => {
-    navigate(-1);
+    searchParams.delete("id");
+    setSearchParams(searchParams);
   };
 
   return (
