@@ -7,6 +7,12 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Popular />,
+    children: [
+      {
+        path: "popular/:id",
+        element: <Popular />,
+      },
+    ],
   },
   {
     path: "/coming-soon",
