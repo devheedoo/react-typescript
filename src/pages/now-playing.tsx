@@ -17,7 +17,6 @@ const NowPlaying = () => {
 
   return (
     <PageWrapper>
-      <PageTitle>Now Playing</PageTitle>
       <MovieList>
         {nowPlayingMovies?.results.map((movie) => {
           return (

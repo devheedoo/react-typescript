@@ -17,7 +17,6 @@ const ComingSoon = () => {
 
   return (
     <PageWrapper>
-      <PageTitle>Coming Soon</PageTitle>
       <MovieList>
         {comingSoonMovies?.results.map((movie) => {
           return (

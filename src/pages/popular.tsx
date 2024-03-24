@@ -2,7 +2,6 @@ import { makeBgPath, makeImagePath } from "../api";
 import { useGetPopular } from "../queries";
 import {
   PageWrapper,
-  PageTitle,
   MovieList,
   MovieCard,
   MovieCardImage,
@@ -13,12 +12,13 @@ import {
   ModalTitle,
   ModalDescription,
 } from "../components/shared";
-import { useNavigate, useParams } from "react-router-dom";
-import { AnimatePresence, motion, useViewportScroll } from "framer-motion";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { AnimatePresence, useViewportScroll } from "framer-motion";
 
 const Popular = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const id = searchParams.get("id");
   const { scrollY } = useViewportScroll();
 
   const { data: popularMovies, isLoading } = useGetPopular();
@@ -27,7 +27,7 @@ const Popular = () => {
     : null;
 
   const handleClickCard = (movieId: number) => {
-    navigate(`/popular/${movieId}`);
+    setSearchParams({ id: movieId + "" });
   };
 
   const handleClickOverlay = () => {
@@ -41,7 +41,6 @@ const Popular = () => {
   return (
     <>
       <PageWrapper>
-        <PageTitle>Popular</PageTitle>
         <MovieList>
           {popularMovies?.results.map((movie) => {
             return (
