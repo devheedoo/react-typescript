@@ -11,10 +11,11 @@ import { useSearchParams } from "react-router-dom";
 import MovieModal from "../components/movie-modal";
 
 const Popular = () => {
+  const { data: popularMovies, isLoading } = useGetPopular();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
 
-  const { data: popularMovies, isLoading } = useGetPopular();
   const selectedMovie = id
     ? popularMovies?.results.find((movie) => movie.id === +id)
     : undefined;
