@@ -19,7 +19,7 @@ const MovieModal = ({ movieId, selectedMovie }: ModalProps) => {
   const { scrollY } = useViewportScroll();
 
   const handleClickOverlay = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   return (
