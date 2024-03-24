@@ -1,4 +1,4 @@
-import { makeBgPath, makeImagePath } from "../api";
+import { makeImagePath } from "../api";
 import { useGetPopular } from "../queries";
 import {
   PageWrapper,
@@ -6,32 +6,21 @@ import {
   MovieCard,
   MovieCardImage,
   MovieCardTitle,
-  Overlay,
-  Modal,
-  ModalCover,
-  ModalTitle,
-  ModalDescription,
 } from "../components/shared";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { AnimatePresence, useViewportScroll } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
+import MovieModal from "../components/movie-modal";
 
 const Popular = () => {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const id = searchParams.get("id");
-  const { scrollY } = useViewportScroll();
 
   const { data: popularMovies, isLoading } = useGetPopular();
   const selectedMovie = id
     ? popularMovies?.results.find((movie) => movie.id === +id)
-    : null;
+    : undefined;
 
   const handleClickCard = (movieId: number) => {
     setSearchParams({ id: movieId + "" });
-  };
-
-  const handleClickOverlay = () => {
-    navigate("/");
   };
 
   if (isLoading) {
@@ -57,28 +46,7 @@ const Popular = () => {
         </MovieList>
       </PageWrapper>
 
-      <AnimatePresence>
-        {id ? (
-          <>
-            <Overlay onClick={handleClickOverlay} />
-            <Modal layoutId={id} style={{ top: scrollY.get() + 92 }}>
-              {selectedMovie && (
-                <>
-                  <ModalCover
-                    style={{
-                      backgroundImage: `url(${makeBgPath(
-                        selectedMovie.backdrop_path
-                      )})`,
-                    }}
-                  />
-                  <ModalTitle>{selectedMovie.title}</ModalTitle>
-                  <ModalDescription>{selectedMovie.overview}</ModalDescription>
-                </>
-              )}
-            </Modal>
-          </>
-        ) : null}
-      </AnimatePresence>
+      <MovieModal movieId={id} selectedMovie={selectedMovie} />
     </>
   );
 };
